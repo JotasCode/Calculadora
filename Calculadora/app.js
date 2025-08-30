@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttons = Array.from(document.querySelectorAll('.btn'));
     const clearButton = document.getElementById('clear');
     const equalButton = document.getElementById('equal');
+    const deleteButton = document.getElementById('delete');})
     
     let currentInput = '';
     
@@ -13,9 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Agregar eventos a los botones
     buttons.forEach(button => {
-        button.addEventListener('click', (event) => {
+    deleteButton.addEventListener('click', () => {
+    currentInput = currentInput.slice(0, -1);
+    updateScreen();
+    button.addEventListener('click', (event) => {
             const value = event.target.textContent;
-            
             if (value === 'C') {
                 currentInput = '';
                 updateScreen();

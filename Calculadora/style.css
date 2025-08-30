@@ -10,14 +10,14 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f1f1f1;
+    background-color: #06e9f193;
 }
 
 .calculator {
     background-color: #282828;
-    border-radius: 10px;
+    border-radius: 25px;
     padding: 20px;
-    width: 260px;
+    width: 360px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -53,6 +53,14 @@ body {
 
 .btn:hover {
     background-color: #555555;
+}
+
+#delete {
+    background-color: #f39c12;
+}
+
+#delete:hover {
+    background-color: #e67e22;
 }
 
 #clear {
