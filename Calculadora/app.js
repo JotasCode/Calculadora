@@ -1,30 +1,50 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM completamente cargado y listo"); 
+
     const screen = document.getElementById('screen');
     const buttons = Array.from(document.querySelectorAll('.btn'));
     const clearButton = document.getElementById('clear');
     const equalButton = document.getElementById('equal');
-    const deleteButton = document.getElementById('delete');})
-    
+    const deleteButton = document.getElementById('delete');
     let currentInput = '';
-    
-    // Función para actualizar la pantalla
+
     const updateScreen = () => {
         screen.value = currentInput;
     };
 
-    // Evento para botón de borrar (DEL) 
-    deleteButton.addEventListener('click', () => {
-    currentInput = currentInput.slice(0, -1);
-    updateScreen();
-    )};
+    buttons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            console.log("Botón presionado:", event.target.textContent);
 
-    // Evento para botón de limpiar (C)
+            const value = event.target.textContent;
+
+            if (value === 'C') {
+                currentInput = '';
+                updateScreen();
+            } else if (value === '=') {
+                try {
+                    currentInput = eval(currentInput).toString();
+                } catch (error) {
+                    currentInput = 'Error';
+                }
+                updateScreen();
+            } else {
+                currentInput += value;
+                updateScreen();
+            }
+        });
+    });
+    
     clearButton.addEventListener('click', () => {
         currentInput = '';
         updateScreen();
     });
-    
-    // Evento para botón de igual (=)
+
+    deleteButton.addEventListener('click', () => {
+        currentInput = currentInput.slice(0, -1);
+        updateScreen();
+    });
+
     equalButton.addEventListener('click', () => {
         try {
             currentInput = eval(currentInput).toString();
@@ -32,18 +52,5 @@ document.addEventListener('DOMContentLoaded', () => {
             currentInput = 'Error';
         }
         updateScreen();
-    });
-    
-   // Eventos para los botones de números y operadores
-    buttons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            const value = event.target.textContent;
-
-            // Ignorar botones especiales aquí
-            if (value !== '=' && value !== 'C' && value !== 'DEL') {
-                currentInput += value;
-                updateScreen();
-            }
-        });
     });
 });
