@@ -11,25 +11,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateScreen = () => {
         screen.value = currentInput;
     };
-    
-    // Agregar eventos a los botones
-    buttons.forEach(button => {
+
+    // Evento para botón de borrar (DEL) 
     deleteButton.addEventListener('click', () => {
     currentInput = currentInput.slice(0, -1);
     updateScreen();
-    button.addEventListener('click', (event) => {
+    )};
+
+    // Evento para botón de limpiar (C)
+    clearButton.addEventListener('click', () => {
+        currentInput = '';
+        updateScreen();
+    });
+    
+    // Evento para botón de igual (=)
+    equalButton.addEventListener('click', () => {
+        try {
+            currentInput = eval(currentInput).toString();
+        } catch (error) {
+            currentInput = 'Error';
+        }
+        updateScreen();
+    });
+    
+   // Eventos para los botones de números y operadores
+    buttons.forEach(button => {
+        button.addEventListener('click', (event) => {
             const value = event.target.textContent;
-            if (value === 'C') {
-                currentInput = '';
-                updateScreen();
-            } else if (value === '=') {
-                try {
-                    currentInput = eval(currentInput).toString();
-                } catch (error) {
-                    currentInput = 'Error';
-                }
-                updateScreen();
-            } else {
+
+            // Ignorar botones especiales aquí
+            if (value !== '=' && value !== 'C' && value !== 'DEL') {
                 currentInput += value;
                 updateScreen();
             }
