@@ -7,50 +7,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const equalButton = document.getElementById('equal');
     const deleteButton = document.getElementById('delete');
     let currentInput = '';
-
     const updateScreen = () => {
         screen.value = currentInput;
     };
+    
+buttons.forEach(button => {
+    button.addEventListener('click', (event) => {
+        const value = event.target.textContent;
 
-    buttons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            console.log("Botón presionado:", event.target.textContent);
-
-            const value = event.target.textContent;
-
-            if (value === 'C') {
-                currentInput = '';
-                updateScreen();
-            } else if (value === '=') {
+        if (value === 'C') {
+            currentInput = '';
+            updateScreen();
+        } else if (value === '=') {
+            if (/[\+\-\*\/]$/.test(currentInput)) {
+                currentInput = 'Error';
+            } else {
                 try {
                     currentInput = eval(currentInput).toString();
                 } catch (error) {
                     currentInput = 'Error';
                 }
-                updateScreen();
-            } else {
-                currentInput += value;
-                updateScreen();
             }
-        });
-    });
-    
-    clearButton.addEventListener('click', () => {
-        currentInput = '';
-        updateScreen();
-    });
-
-    deleteButton.addEventListener('click', () => {
-        currentInput = currentInput.slice(0, -1);
-        updateScreen();
-    });
-
-    equalButton.addEventListener('click', () => {
-        try {
-            currentInput = eval(currentInput).toString();
-        } catch (error) {
-            currentInput = 'Error';
+            updateScreen();
+        } else if (value === 'DEL') 
+            {   
+            currentInput = currentInput.slice(0, -1);
+            updateScreen();
+        } else {
+            currentInput += value;
+            updateScreen();
         }
-        updateScreen();
     });
 });
+})
